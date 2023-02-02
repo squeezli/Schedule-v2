@@ -1,8 +1,8 @@
-import { DataTypes } from "sequelize"
-import { sequelize } from "../utils/DB.utils.js"
-import { Schedule } from "./schedules.models.js"
+const { DataTypes } = require('sequelize')
+const { sequelize } = require('../utils/DB.utils.js')
+const Schedule = require("./schedules.models.js")
 
-const Subject =  sequelize.define('subject', {
+const Subject = sequelize.define('subject', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -18,4 +18,4 @@ const Subject =  sequelize.define('subject', {
 
 Subject.hasMany(Schedule)
 
-export { Subject }
+module.exports = Subject

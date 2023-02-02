@@ -1,8 +1,8 @@
-import { DataTypes } from 'sequelize'
-import { sequelize } from '../utils/DB.js'
-import { Schedule } from './schedules.js'
+const { DataTypes } = require( 'sequelize')
+const { sequelize }  = require ('../utils/DB.utils.js')
+const Schedule   = require ('./schedules.models.js')
 
-const User =  sequelize.define("user", {
+const User = sequelize.define("user", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -24,4 +24,4 @@ const User =  sequelize.define("user", {
 
 User.hasMany(Schedule)
 
-export { User }
+module.exports = User

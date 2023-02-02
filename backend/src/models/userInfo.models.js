@@ -1,8 +1,8 @@
-import { DataTypes } from 'sequelize'
-import { sequelize } from '../utils/DB.utils.js'
-// import { User } from './users'
+const { DataTypes } = require('sequelize')
+const { sequelize } = require('../utils/DB.utils.js')
+const  User  = require('../models/users.models')
 
-const UserInfo =  sequelize.define('userInfo', {
+const UserInfo = sequelize.define('userInfo', {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -14,6 +14,6 @@ const UserInfo =  sequelize.define('userInfo', {
 
 })
 
-// UserInfo.hasOne(User)
+UserInfo.hasOne(User)
 
-export { UserInfo }
+module.exports = UserInfo

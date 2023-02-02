@@ -1,8 +1,8 @@
-import { DataTypes } from "sequelize"
-import { sequelize } from "../utils/DB.utils.js"
-import { Classroom } from "./classrooms.models.js"
+const { DataTypes } = require('sequelize')
+const { sequelize } = require('../utils/DB.utils.js')
+const Classroom = require("./classrooms.models.js")
 
-const Building =  sequelize.define('building', {
+const Building = sequelize.define('building', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -22,4 +22,4 @@ const Building =  sequelize.define('building', {
 
 Building.hasMany(Classroom)
 
-export { Building, }
+module.exports = Building

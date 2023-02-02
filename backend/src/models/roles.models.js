@@ -1,5 +1,5 @@
-import { DataTypes } from "sequelize"
-import { sequelize } from "../utils/DB.js"
+const { DataTypes } = require('sequelize')
+const { sequelize } = require('../utils/DB.utils.js')
 
 const Role =  sequelize.define('role', {
     id: {
@@ -15,4 +15,4 @@ const Role =  sequelize.define('role', {
     },
 })
 
-export { Role }
+module.exports = Role

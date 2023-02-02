@@ -1,15 +1,15 @@
-import { DataTypes } from "sequelize"
-import { sequelize } from "../utils/DB.utils.js"
-import { Schedule } from "./schedules.models.js"
+const { DataTypes } = require('sequelize')
+const { sequelize } = require('../utils/DB.utils.js')
+const Schedule = require("./schedules.models.js")
 
-const Classroom =  sequelize.define('classroom', {
+const Classroom = sequelize.define('classroom', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
     },
-    numberClassroom:{
+    numberClassroom: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -18,4 +18,4 @@ const Classroom =  sequelize.define('classroom', {
 
 Classroom.hasMany(Schedule)
 
-export {Classroom}
+module.exports = Classroom

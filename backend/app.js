@@ -6,8 +6,7 @@ const app = express()
 
 app.use(express.json({ extended: true }))
 
-// app.use('/api', router)
-app.use('/api',function(res,req){res.send('das')} )
+app.use('/api', router)
 
 dotenv.config()
 const PORT = process.env.APP_PORT
