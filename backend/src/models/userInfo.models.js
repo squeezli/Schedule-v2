@@ -14,6 +14,5 @@ const UserInfo = sequelize.define('userInfo', {
 
 })
 
-UserInfo.hasOne(User)
 
 module.exports = UserInfo

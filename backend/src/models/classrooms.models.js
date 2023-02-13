@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../utils/DB.utils.js')
-const Schedule = require("./schedules.models.js")
+const Schedule = require('./schedules.models.js')
 
 const Classroom = sequelize.define('classroom', {
     id: {
@@ -16,6 +16,6 @@ const Classroom = sequelize.define('classroom', {
 },
 )
 
-Classroom.hasMany(Schedule)
+// Classroom.hasMany(Schedule)
 
 module.exports = Classroom

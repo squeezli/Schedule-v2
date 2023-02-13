@@ -15,6 +15,6 @@ const Group = sequelize.define('group', {
     }
 })
 
-Group.hasMany(Schedule)
+
 
 module.exports = Group

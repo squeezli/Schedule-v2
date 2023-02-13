@@ -16,6 +16,6 @@ const Subject = sequelize.define('subject', {
 },
 )
 
-Subject.hasMany(Schedule)
+
 
 module.exports = Subject
