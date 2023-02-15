@@ -1,55 +1,55 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { Button } from '@mui/material';
 import { useHttp } from "../../hooks/http.hook";
+import { useNavigate, useParams } from 'react-router-dom'
+import { Schedule } from '../../components/schedule/schedule';
+import moment from 'moment';
+
+
+
+
 
 
 export const Group = () => {
 
-    const {request, loading} = useHttp();
+    const name = useParams().name;
 
-    const [groups, setGroups] = React.useState([]);
-    
+    const startDate = moment().startOf('week').format('YYYY-MM-DD');
+    const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
-    const fetchGroups = React.useCallback(async () => {
+    const { request, loading } = useHttp();
+    const [groupSchedule, setGroupSchedule] = React.useState([]);
+
+
+    const fetchGroupSchedule = React.useCallback(async () => {
         try {
-            const fetched = await request(`/api/group/list`, 'GET', null);
-            setGroups(fetched);
-            console.log('fetched',fetched);
-            
-        } catch (error) {
-            console.log('w',error);
-        }
+            console.log(startDate, endDate);
+            console.log(name);
+
+            const fetched = await request(`/api/schedule/group/${name}`, 'GET', {})
+
+            console.log('ff',fetched);
+
+
+            // setGroupSchedule([...groupSchedule, ...fetched.map(group => [group.name, group.id])])
+
+        } catch (error) { }
     }, [request]);
 
     React.useEffect(() => {
-        fetchGroups();
-        console.log('dasda');
-        
-    }, [fetchGroups]);
+        fetchGroupSchedule();
+    }, [fetchGroupSchedule]);
 
-    const [value, setValue] = React.useState(null);
 
-    if(loading) return <p>Loading...</p>;
+    if (loading) return <p>Loading...</p>;
+
 
 
     return (
         <>
-            <h1>Расписание группы</h1>
-            <Autocomplete
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
-                disablePortal
-                id="combo-box-demo"
-                options={groups}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Группа" />}
-            />
+            <h1>Расписание {name} группы</h1>
 
-            {value != null && <Button variant="contained"> Contained</Button>}
+            <Schedule name={name} />
+
         </>
     );
 }

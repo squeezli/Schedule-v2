@@ -22,7 +22,7 @@ exports.create = async (req, res) => {
 
         const candidate = await Classroom.findOne({ where: { name } })
 
-        if (candidate) { return res.status(400).json({ message: `Аудитория: ${name} добавлена.` }) }
+        if (candidate) { return res.status(400).json({ message: `Аудитория: ${name} уже была добавлена.` }) }
 
         const classroom = await Classroom.create({ name })
 

@@ -5,7 +5,7 @@ const { sequelize } = require('../utils/DB.utils.js')
 
 exports.showByUser = async (req, res) => {
     try {
-
+        
         const id = req.params.id
         const { startDate, endDate } = req.body
 
@@ -26,17 +26,23 @@ exports.showByUser = async (req, res) => {
 exports.showByGroup = async (req, res) => {
     try {
 
+        console.log('da')
         const id = req.params.id
-        const { startDate, endDate } = req.body
+        const { startDate, endDate } = await req.body
 
-        const shedules = await Schedule.findAll({
+        console.log(id)
+        
+        
+        const schedules = await Schedule.findAll({
             where: {
                 groupId: id,
                 date: { [Op.between]: [startDate, endDate] },
             }
         })
 
-        return res.status(200).json(shedules)
+        console.log('sdas',schedules)
+
+        return res.status(200).json(schedules)
 
     } catch (error) {
         return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
@@ -89,7 +95,7 @@ exports.updateDay = async (req, res) => {
             }
         })
 
-        return res.status(200).json({ message: `Данные пользователя обновлены` })
+        return res.status(200).json({ message: `Расписание обновлено` })
     } catch (error) {
         return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
     }
@@ -113,22 +119,22 @@ exports.updateWeek = async (req, res) => {
         //     }
         // })
 
-        return res.status(200).json({ message: `Данные пользователя обновлены` })
+        return res.status(200).json({ message: `Расписание обновлено` })
     } catch (error) {
         return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
     }
 }
 
 exports.delete = async (req, res) => {
-    try {
-        const id = req.params.id
-        await User.destroy({
-            where: {
-                id: id,
-            }
-        })
-        return res.status(204).json({ message: `Пользователь удален` })
-    } catch (error) {
+    // try {
+    //     const id = req.params.id
+    //     await User.destroy({
+    //         where: {
+    //             id: id,
+    //         }
+    //     })
+    //     return res.status(204).json({ message: `Пользователь удален` })
+    // } catch (error) {
         return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
-    }
+    // }
 }
