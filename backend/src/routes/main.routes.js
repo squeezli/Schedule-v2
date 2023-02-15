@@ -32,7 +32,7 @@ router.delete('/user/delete/:id',users.delete)
 
 //schedule route
 // router.use()
-router.get('/schedule/group/:id',schedules.showByGroup)
+router.post('/schedule/group/:id',schedules.showByGroup)
 router.get('/schedule/user/:id',schedules.showByUser)
 router.post('/schedule/create',schedules.create)
 router.put('/schedule/update/:id',schedules.updateDay)

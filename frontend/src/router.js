@@ -10,7 +10,7 @@ export const useRoutes = () => {
     return (
         <Routes>
             <Route path="/group" element={<Groups />} />
-            <Route path="/group/:name" element={<Group />} />
+            <Route path="/group/:id" element={<Group />} />
             <Route path="/" element={<Home />} />
         </Routes>
     )

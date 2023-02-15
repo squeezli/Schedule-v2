@@ -11,7 +11,7 @@ import moment from 'moment';
 
 export const Group = () => {
 
-    const name = useParams().name;
+    const id = useParams().id;
 
     const startDate = moment().startOf('week').format('YYYY-MM-DD');
     const endDate = moment().endOf('week').format('YYYY-MM-DD');
@@ -22,17 +22,19 @@ export const Group = () => {
 
     const fetchGroupSchedule = React.useCallback(async () => {
         try {
-            console.log(startDate, endDate);
-            console.log(name);
+            
 
-            const fetched = await request(`/api/schedule/group/${name}`, 'GET', {})
-
+            const fetched = await request(`/api/schedule/group/${id}`, 'POST', {startDate, endDate});
+            
             console.log('ff',fetched);
 
 
             // setGroupSchedule([...groupSchedule, ...fetched.map(group => [group.name, group.id])])
 
-        } catch (error) { }
+        } catch (error) {
+            console.log(error);
+        
+         }
     }, [request]);
 
     React.useEffect(() => {
@@ -46,9 +48,9 @@ export const Group = () => {
 
     return (
         <>
-            <h1>Расписание {name} группы</h1>
+            <h1>Расписание {id} группы</h1>
 
-            <Schedule name={name} />
+            <Schedule name={id} />
 
         </>
     );
