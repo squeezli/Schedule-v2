@@ -13,7 +13,7 @@ export const Classroom = () => {
     const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
     const { request, loading } = useHttp();
-    const [groupSchedule, setGroupSchedule] = React.useState([]);
+    const [schedule, setSchedule] = React.useState([]);
 
     const fetchSchedule = React.useCallback(async () => {
         try {
@@ -22,7 +22,7 @@ export const Classroom = () => {
             
             console.log('ff',fetched);
 
-            // setSchedule([...groupSchedule, ...fetched.map(group => [group.name, group.id])])
+            // setSchedule([...schedule, ...fetched.map(group => [group.name, group.id])])
 
         } catch (error) {
             console.log(error);
