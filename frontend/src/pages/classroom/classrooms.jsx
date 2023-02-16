@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { useHttp } from "../../hooks/http.hook";
 import { useNavigate } from 'react-router-dom'
 
-export const Groups = () => {
+export const Classrooms = () => {
 
     const { request, loading } = useHttp();
     const [classrooms, setClassrooms] = React.useState([]);
