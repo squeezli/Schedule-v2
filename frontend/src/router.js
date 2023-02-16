@@ -4,8 +4,8 @@ import { Groups } from "./pages/group/groups.jsx";
 import { Group } from "./pages/group/group.jsx";
 import { Teachers } from "./pages/teacher/teachers.jsx";
 import { Teacher } from "./pages/teacher/teacher.jsx";
-import { Classrooms } from "./pages/Classroom/Classrooms.jsx";
-import { Classroom } from "./pages/Classroom/Classroom.jsx";
+import { Classrooms } from "./pages/classroom/classrooms.jsx";
+import { Classroom } from "./pages/classroom/classroom.jsx";
 
 import { Home } from "./pages/home/home.jsx";
 
