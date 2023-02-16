@@ -24,8 +24,8 @@ export const Classrooms = () => {
     }, [request]);
 
     React.useEffect(() => {
-        fetchGroups();
-    }, [fetchGroups]);
+        fetchClassrooms();
+    }, [fetchClassrooms]);
 
 
     if (loading) return <p>Loading...</p>;
@@ -35,35 +35,35 @@ export const Classrooms = () => {
         <>
             <h1>Расписание аудитории</h1>
             <Autocomplete
-                value={value}
+                value={buildingValue}
                 onChange={(event, newValue) => {
                     setClassroomValue(newValue);
                     console.log('classroomValue: ',classroomValue)
                 }}
                 disablePortal
                 id="combo-box-demo"
-                options={classrooms.map(items => item[0])}
+                options={classrooms.map(items => items[0])}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Корпус" />}
             />
 
-             {value != null &&
+             {buildingValue != null &&
                 <Autocomplete
-                value={value}
+                value={classroomValue}
                 onChange={(event, newValue) => {
                     setBuildingValue(newValue);
                     console.log('buildingValue: ',buildingValue)
                 }}
                 disablePortal
                 id="combo-box-demo"
-                options={classrooms.map(items => item[0])}
+                options={classrooms.map(items => items[0])}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Аудитория" />}
               />}
 
-            {value != null &&
+            {classroomValue != null &&
                 <Button
-                    onClick={()=> navigate(`/classroom/${value}`)}
+                    onClick={()=> navigate(`/classroom/${classroomValue}`)}
                     variant="contained"
                 >Показать расписание
                 </Button>}
