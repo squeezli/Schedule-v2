@@ -5,10 +5,6 @@ import { Schedule } from '../../components/schedule/schedule';
 import moment from 'moment';
 
 
-
-
-
-
 export const Group = () => {
 
     const id = useParams().id;
@@ -17,19 +13,16 @@ export const Group = () => {
     const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
     const { request, loading } = useHttp();
-    const [groupSchedule, setGroupSchedule] = React.useState([]);
+    const [schedule, setSchedule] = React.useState([]);
 
-
-    const fetchGroupSchedule = React.useCallback(async () => {
+    const fetchSchedule = React.useCallback(async () => {
         try {
-            
 
             const fetched = await request(`/api/schedule/group/${id}`, 'POST', {startDate, endDate});
             
             console.log('ff',fetched);
 
-
-            // setGroupSchedule([...groupSchedule, ...fetched.map(group => [group.name, group.id])])
+            // setSchedule([...schedule, ...fetched.map(group => [group.name, group.id])])
 
         } catch (error) {
             console.log(error);
@@ -38,8 +31,8 @@ export const Group = () => {
     }, [request]);
 
     React.useEffect(() => {
-        fetchGroupSchedule();
-    }, [fetchGroupSchedule]);
+        fetchSchedule();
+    }, [fetchSchedule]);
 
 
     if (loading) return <p>Loading...</p>;
