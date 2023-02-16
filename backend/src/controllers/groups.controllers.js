@@ -1,4 +1,4 @@
-const Group = require('../models/Groups.models.js')
+const Group = require('../models/groups.models.js')
 
 
 exports.list = async (req, res) => {
