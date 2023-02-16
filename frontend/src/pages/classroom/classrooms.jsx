@@ -32,17 +32,17 @@ export const Classrooms = () => {
 
 
     return (
-        <>
+         <>
             <h1>Расписание аудитории</h1>
             <Autocomplete
                 value={buildingValue}
                 onChange={(event, newValue) => {
-                    setClassroomValue(newValue);
-                    console.log('classroomValue: ',classroomValue)
+                    setBuildingValue(newValue);
+                    console.log('buildingValue: ',classroomValue)
                 }}
                 disablePortal
                 id="combo-box-demo"
-                options={classrooms.map(items => items[0])}
+                options={buildings.map(items => items)}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Корпус" />}
             />
@@ -51,8 +51,8 @@ export const Classrooms = () => {
                 <Autocomplete
                 value={classroomValue}
                 onChange={(event, newValue) => {
-                    setBuildingValue(newValue);
-                    console.log('buildingValue: ',buildingValue)
+                    setClassroomValue(newValue);
+                    console.log('classroomValue: ',classroomValue)
                 }}
                 disablePortal
                 id="combo-box-demo"
