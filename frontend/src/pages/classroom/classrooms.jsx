@@ -8,24 +8,29 @@ import { useNavigate } from 'react-router-dom'
 export const Classrooms = () => {
 
     const { request, loading } = useHttp();
-    const [classrooms, setClassrooms] = React.useState([]);
-    const [buildings, setBuildings] = React.useState([]);
+    // const [classrooms, setClassrooms] = React.useState([]);
+    // const [buildings, setBuildings] = React.useState([]);
     const [classroomValue, setClassroomValue] = React.useState(null);
     const [buildingValue, setBuildingValue] = React.useState(null);
     const navigate = useNavigate();
 
-    const fetchClassrooms = React.useCallback(async () => {
-        try {
-            const fetched = await request(`/api/classroom/list`, 'GET', null);
+    const buildings = ['Главный', 'Музыкальный', 'Сок']
+
+    const classrooms = [['1 ', '2 ', '3 '], ['1 Муз', '2 Муз', '3 Муз'], ['1 С', '2 С', '3 С']]
+
+
+    // const fetchClassrooms = React.useCallback(async () => {
+    //     try {
+    //         const fetched = await request(`/api/classroom/list`, 'GET', null);
         
-            setClassrooms([...classrooms, ...fetched.map(classroom => [classroom.name, classroom.id])])
+    //         setClassrooms([...classrooms, ...fetched.map(classroom => [classroom.name, classroom.id])])
 
-        } catch (error) {}
-    }, [request]);
+    //     } catch (error) {}
+    // }, [request]);
 
-    React.useEffect(() => {
-        fetchClassrooms();
-    }, [fetchClassrooms]);
+    // React.useEffect(() => {
+    //     fetchClassrooms();
+    // }, [fetchClassrooms]);
 
 
     if (loading) return <p>Loading...</p>;
@@ -56,7 +61,7 @@ export const Classrooms = () => {
                 }}
                 disablePortal
                 id="combo-box-demo"
-                options={classrooms.map(items => items[0])}
+                options={classrooms[0].map(items => items)}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Аудитория" />}
               />}

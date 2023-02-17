@@ -8,22 +8,25 @@ import { useNavigate } from 'react-router-dom'
 export const Groups = () => {
 
     const { request, loading } = useHttp();
-    const [groups, setGroups] = React.useState([])
+    // const [groups, setGroups] = React.useState([])
     const [value, setValue] = React.useState(null);
     const navigate = useNavigate();
+
+    const groups =['490','491','492','493','494','495']
+
 
     const fetchGroups = React.useCallback(async () => {
         try {
             const fetched = await request(`/api/group/list`, 'GET', null);
 
-            setGroups([...groups, ...fetched.map(group => [group.name, group.id])])
+            // setGroups([...groups, ...fetched.map(group => [group.name, group.id])])
 
         } catch (error) {}
     }, [request]);
 
-    React.useEffect(() => {
-        fetchGroups();
-    }, [fetchGroups]);
+    // React.useEffect(() => {
+    //     fetchGroups();
+    // }, [fetchGroups]);
 
 
     if (loading) return <p>Loading...</p>;
@@ -40,7 +43,8 @@ export const Groups = () => {
                 }}
                 disablePortal
                 id="combo-box-demo"
-                options={groups.map(group => group[0])}
+                // options={groups.map(group => group[0])}
+                options={groups.map(group => group)}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Группа" />}
             />

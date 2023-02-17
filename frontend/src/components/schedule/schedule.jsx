@@ -11,21 +11,24 @@ import moment from 'moment';
 moment.locale('ru');
 
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+function createData(lesson, time, mon, tue, wed, th, fr, sa) {
+    return { lesson, time, mon, tue, wed, th, fr, sa };
+
 }
 
+
+
 const rows = [
-    createData(1, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(2, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(3, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(4, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(5, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(6, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(7, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(8, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(9, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
-    createData(10, '1:59 - 2:40', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule', 'groupSchedule'),
+    createData(1, '8:00 - 8:45', '', '', '', '', 'Физика 1 Гл', ''),
+    createData(2, '8:55 - 9:40', '', '', '', '', 'Физика 1 Гл', ''),
+    createData(3, '9:55 - 10:40', 'Физ-ра С', 'Физика 1 Гл', '', '', 'Химия 2 М', ''),
+    createData(4, '11:00 - 11:45', 'Физ-ра С', 'Физика 1 Гл', '', '', '', 'Химия 2 М'),
+    createData(5, '12:05 - 12:50', 'Информатика 53 М', 'Математика 30Гл', 'Физ-ра С', 'Информатика 53 М', '', ''),
+    createData(6, '13:00 - 13:45', 'Информатика 53 М', 'Математика 30Гл', 'Физ-ра С', '', 'Информатика 53 М', ''),
+    createData(7, '13:55 - 14:40', '', 'Химия 2 М', '', 'Информатика 53 М', 'Математика 30Гл', ''),
+    createData(8, '14:50 - 15:35', '', 'Химия 2 М', '', 'Информатика 53 М', 'Математика 30Гл', ''),
+    createData(9, '15:45 - 16:30', '', '', '', '', '', ''),
+    createData(10, '16:40 - 17:25', '', '', '', '', '', ''),
 ];
 
 export const Schedule = (props) => {
@@ -54,16 +57,16 @@ export const Schedule = (props) => {
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell sx={{ width: 20, padding: 0 }}  component="th" scope="row">
-                                    {row.name}
+                                <TableCell sx={{ width: 20, padding: 0 }} component="th" scope="row">
+                                    {row.lesson}
                                 </TableCell>
-                                <TableCell sx={{ width: 70, padding: 0 }}>{row.calories}</TableCell>
-                                <TableCell align="center">{row.fat}</TableCell>
-                                <TableCell align="center">{row.carbs}</TableCell>
-                                <TableCell align="center">{row.carbs}</TableCell>
-                                <TableCell align="center">{row.carbs}</TableCell>
-                                <TableCell align="center">{row.carbs}</TableCell>
-                                <TableCell align="center">{row.protein}</TableCell>
+                                <TableCell sx={{ width: 70, padding: 0 }}>{row.time}</TableCell>
+                                <TableCell align="center">{row.mon}</TableCell>
+                                <TableCell align="center">{row.tue}</TableCell>
+                                <TableCell align="center">{row.wed}</TableCell>
+                                <TableCell align="center">{row.th}</TableCell>
+                                <TableCell align="center">{row.fr}</TableCell>
+                                <TableCell align="center">{row.sa}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

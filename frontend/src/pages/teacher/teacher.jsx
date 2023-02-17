@@ -38,7 +38,7 @@ export const Teacher = () => {
 
     return (
         <>
-            <h1>Расписание {} преподавателя</h1>
+            <h1>Расписание преподавателя {id}</h1>
 
             <Schedule name={id} />
 

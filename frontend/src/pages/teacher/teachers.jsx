@@ -8,23 +8,25 @@ import { useNavigate } from 'react-router-dom'
 export const Teachers = () => {
 
     const { request, loading } = useHttp();
-    const [classrooms, setClassrooms] = React.useState([]);
-    const [buildings, setBuildings] = React.useState([]);
+    // const [teachers, setTeachers] = React.useState([]);
     const [teacherValue, setTeacherValue] = React.useState(null);
     const navigate = useNavigate();
 
-    const fetchClassrooms = React.useCallback(async () => {
-        try {
-            const fetched = await request(`/api/group/list`, 'GET', null);
+    const teachers = ['Черничко И.С.', 'Пархатская А.М.', 'Лиготина Ж.В.']
+    
+
+    // const fetchClassrooms = React.useCallback(async () => {
+    //     try {
+    //         const fetched = await request(`/api/group/list`, 'GET', null);
         
-            setClassrooms([...classrooms, ...fetched.map(classroom => [classroom.name, classroom.id])])
+    //         setClassrooms([...classrooms, ...fetched.map(classroom => [classroom.name, classroom.id])])
 
-        } catch (error) {}
-    }, [request]);
+    //     } catch (error) {}
+    // }, [request]);
 
-    React.useEffect(() => {
-        fetchClassrooms();
-    }, [fetchClassrooms]);
+    // React.useEffect(() => {
+    //     fetchClassrooms();
+    // }, [fetchClassrooms]);
 
 
     if (loading) return <p>Loading...</p>;
@@ -41,7 +43,7 @@ export const Teachers = () => {
                 }}
                 disablePortal
                 id="combo-box-demo"
-                options={classrooms.map(items => items[0])}
+                options={teachers.map(items => items)}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Преподаватель" />}
             />
@@ -50,7 +52,7 @@ export const Teachers = () => {
 
             {teacherValue != null &&
                 <Button
-                    onClick={()=> navigate(`/classroom/${teacherValue}`)}
+                    onClick={()=> navigate(`/teacher/${teacherValue}`)}
                     variant="contained"
                 >Показать расписание
                 </Button>}
