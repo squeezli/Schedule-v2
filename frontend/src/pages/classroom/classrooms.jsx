@@ -16,7 +16,7 @@ export const Classrooms = () => {
 
     const fetchClassrooms = React.useCallback(async () => {
         try {
-            const fetched = await request(`/api/group/list`, 'GET', null);
+            const fetched = await request(`/api/classroom/list`, 'GET', null);
         
             setClassrooms([...classrooms, ...fetched.map(classroom => [classroom.name, classroom.id])])
 

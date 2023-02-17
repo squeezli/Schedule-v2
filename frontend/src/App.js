@@ -16,7 +16,7 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline/>
           <main>
-            <Router>
+            <Router basename={process.env.PUBLIC_URL}>
               <Header />
               <Container>
                 {routes}

@@ -18,6 +18,7 @@ router.delete('/admin/delete/:id',admins.delete)
 
 //building route
 // router.use()
+// router.get('/building/list',buildings.list)
 router.get('/building/:id',buildings.show)
 router.post('/building/create',buildings.create)
 router.put('/building/update/:id',buildings.update)
@@ -25,6 +26,7 @@ router.delete('/building/delete/:id',buildings.delete)
 
 //user route
 // router.use()
+router.get('/user/list',users.list)
 router.get('/user/:id',users.show)
 router.post('/user/create',users.create)
 router.put('/user/update/:id',users.update)
@@ -34,6 +36,7 @@ router.delete('/user/delete/:id',users.delete)
 // router.use()
 router.post('/schedule/group/:id',schedules.showByGroup)
 router.get('/schedule/user/:id',schedules.showByUser)
+// router.get('/schedule/classroom/:id',schedules.showByClassroom)
 router.post('/schedule/create',schedules.create)
 router.put('/schedule/update/:id',schedules.updateDay)
 router.delete('/schedule/delete/:id',schedules.delete)

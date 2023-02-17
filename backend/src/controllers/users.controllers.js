@@ -1,7 +1,28 @@
 const User = require('../models/users.models.js')
 const bcrypt = require('bcrypt')
 const UserInfo = require('../models/userInfo.models.js')
+const Role = require('../models/roles.models.js')
 
+
+exports.list = async (req, res) => {
+    try {
+
+        const teachers = await Role.findAll({where:{name:'teacher'}, include:User }).then(data => data)
+   
+        
+        console.log(teachers)
+        console.log(teachers.dataValues)
+
+        
+
+        return res.status(200).json(teachers)
+
+    } catch (error) {
+        console.log(error)
+        
+        return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
+    }
+}
 
 exports.show = async (req, res) => {
     try {
