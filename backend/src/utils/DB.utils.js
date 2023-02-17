@@ -3,6 +3,8 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
+console.log('')
+
 //Connect to database
 module.exports.sequelize = new Sequelize({
     database: process.env.DB_CONNECT,
@@ -10,5 +12,5 @@ module.exports.sequelize = new Sequelize({
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
     host: process.env.DB_HOST,
-    dialect: 'process.env.DB_DIALECT',
+    dialect: 'mysql',
 })
