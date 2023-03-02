@@ -16,11 +16,12 @@ import { Link, Switch } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 
+
 const pageUrl = ['group', 'teacher', 'classroom'];
 const pages = ['Группы', 'Преподаватели', 'Аудитории'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
-export const Header = () => {
+export const Header = ({setCheckedTheme, checkedTheme}) => {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -41,6 +42,8 @@ export const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+
 
   return (
     <AppBar position="static"  >
@@ -138,8 +141,11 @@ export const Header = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Switch defaultChecked />
+              {console.log(checkedTheme)}
+              
+          <Switch defaultChecked checked={checkedTheme} onChange={(e) =>setCheckedTheme(e.target.checked)} inputProps={{ 'aria-label': 'controlled' }} />
+
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -167,9 +173,9 @@ export const Header = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar >
-  );
+  )
 }

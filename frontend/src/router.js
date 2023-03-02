@@ -18,7 +18,7 @@ export const useRoutes = () => {
             <Route path="/teacher/" element={<Teachers />} />
             <Route path="/teacher/:id" element={<Teacher />} />
             <Route path="/classroom/" element={<Classrooms />} />
-            <Route path="/classroom/:id" element={<Classroom />} />
+            <Route path="/classroom/:buildingId/:classroomId" element={<Classroom />} />
             <Route path="/" element={<Home />} />
         </Routes>
     )

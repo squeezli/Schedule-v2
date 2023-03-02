@@ -9,33 +9,33 @@ export const Group = () => {
 
     const id = useParams().id;
 
-    const startDate = moment().startOf('week').format('YYYY-MM-DD');
-    const endDate = moment().endOf('week').format('YYYY-MM-DD');
+    // const startDate = moment().startOf('week').format('YYYY-MM-DD');
+    // const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
-    const { request, loading } = useHttp();
-    const [schedule, setSchedule] = React.useState([]);
+    // const { request, loading } = useHttp();
+    // const [schedule, setSchedule] = React.useState([]);
 
-    const fetchSchedule = React.useCallback(async () => {
-        try {
+    // const fetchSchedule = React.useCallback(async () => {
+    //     try {
 
-            const fetched = await request(`/api/schedule/group/${id}`, 'POST', {startDate, endDate});
+    //         const fetched = await request(`/api/schedule/group/${id}`, 'POST', {startDate, endDate});
             
-            console.log('ff',fetched);
+    //         console.log('ff',fetched);
 
-            // setSchedule([...schedule, ...fetched.map(group => [group.name, group.id])])
+    //         // setSchedule([...schedule, ...fetched.map(group => [group.name, group.id])])
 
-        } catch (error) {
-            console.log(error);
+    //     } catch (error) {
+    //         console.log(error);
         
-         }
-    }, [request]);
+    //      }
+    // }, [request]);
 
-    React.useEffect(() => {
-        fetchSchedule();
-    }, [fetchSchedule]);
+    // React.useEffect(() => {
+    //     fetchSchedule();
+    // }, [fetchSchedule]);
 
 
-    if (loading) return <p>Loading...</p>;
+    // if (loading) return <p>Loading...</p>;
 
 
 
