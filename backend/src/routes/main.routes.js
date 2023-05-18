@@ -9,6 +9,8 @@ const groups = require('../controllers/groups.controllers')
 const subjects = require('../controllers/subjects.controllers')
 const classrooms = require('../controllers/classrooms.controllers')
 
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 //admin route
 // router.use('/admin')
 router.get('/admin/:id',admins.show)
@@ -34,10 +36,11 @@ router.delete('/user/delete/:id',users.delete)
 
 //schedule route
 // router.use()
-router.post('/schedule/group/:id',schedules.showByGroup)
-router.get('/schedule/user/:id',schedules.showByUser)
+router.get('/schedule/group/:number',schedules.showByGroup)
+router.get('/schedule/user/:fio',schedules.showByUser)
 // router.get('/schedule/classroom/:id',schedules.showByClassroom)
 router.post('/schedule/create',schedules.create)
+router.post('/schedule/upload',upload.single('file'), schedules.createByCsv)
 router.put('/schedule/update/:id',schedules.updateDay)
 router.delete('/schedule/delete/:id',schedules.delete)
 

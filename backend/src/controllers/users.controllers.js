@@ -1,104 +1,132 @@
-const User = require('../models/users.models.js')
-const bcrypt = require('bcrypt')
-const UserInfo = require('../models/userInfo.models.js')
-const Role = require('../models/roles.models.js')
-
+const User = require("../models/users.models.js");
+const bcrypt = require("bcrypt");
+const UserInfo = require("../models/userInfo.models.js");
+const Role = require("../models/roles.models.js");
+const { sequelize } = require("../utils/DB.utils.js");
 
 exports.list = async (req, res) => {
-    try {
+  try {
+    // const teachers = await Role.findAll({
+    //   where: { name: "teacher" },
+    //   include: User,
+    // }).then((data) => data);
 
-        const teachers = await Role.findAll({where:{name:'teacher'}, include:User }).then(data => data)
-   
-        
-        console.log(teachers)
-        console.log(teachers.dataValues)
+    const user = await sequelize.query(
+      "SELECT DISTINCT `teacher` FROM `schedules`"
+    );
 
-        
+    return res.status(200).json(user[0]);
+  } catch (error) {
+    console.log(error);
 
-        return res.status(200).json(teachers)
-
-    } catch (error) {
-        console.log(error)
-        
-        return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
-    }
-}
+    return res
+      .status(500)
+      .json({ message: `Что-то пошло не так, попробуйте снова` });
+  }
+};
 
 exports.show = async (req, res) => {
-    try {
+  try {
+    const id = req.params.id;
 
-        const id = req.params.id
-
-        const user = await User.findOne({ where: { id } })
-        if (!user) { return res.status(400).json({ message: `Пользователь не найден` }) }
-
-        const userInfo = await UserInfo.findOne({ where: { userId: user.id } })
-
-        return res.status(200).json({ user, userInfo })
-
-    } catch (error) {
-        return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      return res.status(400).json({ message: `Пользователь не найден` });
     }
-}
+
+    const userInfo = await UserInfo.findOne({ where: { userId: user.id } });
+
+    return res.status(200).json({ user, userInfo });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Что-то пошло не так, попробуйте снова` });
+  }
+};
 
 exports.create = async (req, res) => {
-    try {
-        const { login, password, email, name, lastname } = req.body
+  try {
+    const { login, password, email, name, lastname } = req.body;
 
-        const candidate = await User.findOne({ where: { login } })
+    const candidate = await User.findOne({ where: { login } });
 
-        if (candidate) { return res.status(400).json({ message: `Пользователь с таким логином: ${login}, уже зарегистрирован.` }) }
-
-        const hashPassword = await bcrypt.hash(password, 10)
-
-        const user = await User.create({
-            login, password: hashPassword, email
-        })
-
-        const userInfo = await UserInfo.create({
-            name, lastname, userId: user.id
-        })
-
-        return res.status(201).json({ message: `Пользователь зарегистрирован` })
-    } catch (error) {
-        return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова.` })
+    if (candidate) {
+      return res
+        .status(400)
+        .json({
+          message: `Пользователь с таким логином: ${login}, уже зарегистрирован.`,
+        });
     }
-}
+
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      login,
+      password: hashPassword,
+      email,
+    });
+
+    const userInfo = await UserInfo.create({
+      name,
+      lastname,
+      userId: user.id,
+    });
+
+    return res.status(201).json({ message: `Пользователь зарегистрирован` });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Что-то пошло не так, попробуйте снова.` });
+  }
+};
 
 exports.update = async (req, res) => {
-    try {
-        const { password, email } = req.body
-        const id = req.params.id
-        const hashPassword = await bcrypt.hash(password, 10)
-        const candidate = await User.findOne({ where: { email } })
+  try {
+    const { password, email } = req.body;
+    const id = req.params.id;
+    const hashPassword = await bcrypt.hash(password, 10);
+    const candidate = await User.findOne({ where: { email } });
 
-        if (candidate) { return res.status(400).json({ message: `Пользователь с данным email: ${email}, уже зарегистрирован.` }) }
-
-        await User.update({
-            email,
-            password: hashPassword,
-        }, {
-            where: {
-                id
-            }
-        })
-
-        return res.status(200).json({ message: `Данные пользователя обновлены` })
-    } catch (error) {
-        return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
+    if (candidate) {
+      return res
+        .status(400)
+        .json({
+          message: `Пользователь с данным email: ${email}, уже зарегистрирован.`,
+        });
     }
-}
+
+    await User.update(
+      {
+        email,
+        password: hashPassword,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    return res.status(200).json({ message: `Данные пользователя обновлены` });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Что-то пошло не так, попробуйте снова` });
+  }
+};
 
 exports.delete = async (req, res) => {
-    try {
-        const id = req.params.id
-        await User.destroy({
-            where: {
-                id
-            }
-        })
-        return res.status(204).json({ message: `Пользователь удален` })
-    } catch (error) {
-        return res.status(500).json({ message: `Что-то пошло не так, попробуйте снова` })
-    }
-}
+  try {
+    const id = req.params.id;
+    await User.destroy({
+      where: {
+        id,
+      },
+    });
+    return res.status(204).json({ message: `Пользователь удален` });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Что-то пошло не так, попробуйте снова` });
+  }
+};

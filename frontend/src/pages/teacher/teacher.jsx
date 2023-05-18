@@ -1,47 +1,49 @@
-import * as React from 'react';
+import * as React from "react";
 import { useHttp } from "../../hooks/http.hook";
-import { useNavigate, useParams } from 'react-router-dom'
-import { Schedule } from '../../components/schedule/schedule';
-import moment from 'moment';
-
+import { useNavigate, useParams } from "react-router-dom";
+import { Schedule } from "../../components/schedule/schedule";
+import moment from "moment";
 
 export const Teacher = () => {
+  const id = useParams().id;
 
-    const id = useParams().id;
+  // const startDate = moment().startOf('week').format('YYYY-MM-DD');
+  // const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
-    // const startDate = moment().startOf('week').format('YYYY-MM-DD');
-    // const endDate = moment().endOf('week').format('YYYY-MM-DD');
+  const { request, loading } = useHttp();
+  const [schedule, setSchedule] = React.useState([]);
 
-    // const { request, loading } = useHttp();
-    // const [schedule, setSchedule] = React.useState([]);
+  const fetchSchedule = React.useCallback(async () => {
+    try {
+      const fetched = await request(`/api/schedule/user/${id}`, "GET");
 
-    // const fetchSchedule = React.useCallback(async () => {
-    //     try {
-            
-    //         const fetched = await request(`/api/schedule/group/${id}`, 'POST', {startDate, endDate});
-            
-    //         console.log('ff',fetched);
+      console.log("ff", fetched);
 
-    //         // setSchedule([...schedule, ...fetched.map(group => [group.name, group.id])])
+      setSchedule([
+        ...schedule,
+        ...fetched.map((teacher) => [
+          teacher.subject,
+          teacher.classroom,
+          teacher.buildings,
+        ]),
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [request]);
 
-    //     } catch (error) {
-    //         console.log(error);
-        
-    //      }
-    // }, [request]);
+  React.useEffect(() => {
+    fetchSchedule();
+  }, [fetchSchedule]);
 
-    // React.useEffect(() => {
-    //     fetchSchedule();
-    // }, [fetchSchedule]);
+  if (loading) return <p>Loading...</p>;
+  if (!schedule.length) return <p>Loading...</p>;
 
-    // if (loading) return <p>Loading...</p>;
+  return (
+    <>
+      <h1>Расписание преподавателя {id}</h1>
 
-    return (
-        <>
-            <h1>Расписание преподавателя {id}</h1>
-
-            <Schedule name={id} />
-
-        </>
-    );
-}
+      <Schedule name={id} schedule1={schedule} />
+    </>
+  );
+};

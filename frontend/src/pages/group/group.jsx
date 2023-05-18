@@ -12,38 +12,41 @@ export const Group = () => {
     // const startDate = moment().startOf('week').format('YYYY-MM-DD');
     // const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
-    // const { request, loading } = useHttp();
-    // const [schedule, setSchedule] = React.useState([]);
+    console.log(id)
 
-    // const fetchSchedule = React.useCallback(async () => {
-    //     try {
+    const { request, loading } = useHttp();
+    const [schedule, setSchedule] = React.useState([]);
 
-    //         const fetched = await request(`/api/schedule/group/${id}`, 'POST', {startDate, endDate});
+    const fetchSchedule = React.useCallback(async () => {
+        try {
+
+            const fetched = await request(`/api/schedule/group/${id}`, 'GET');
             
-    //         console.log('ff',fetched);
+            console.log('ff',fetched);
 
-    //         // setSchedule([...schedule, ...fetched.map(group => [group.name, group.id])])
+            setSchedule([...schedule, ...fetched.map(group=>[group.subject, group.classroom, group.buildings])])
 
-    //     } catch (error) {
-    //         console.log(error);
+        } catch (error) {
+            console.log(error);
         
-    //      }
-    // }, [request]);
+         }
+    }, [request]);
 
-    // React.useEffect(() => {
-    //     fetchSchedule();
-    // }, [fetchSchedule]);
+    React.useEffect(() => {
+        fetchSchedule();
+    }, []);
 
 
-    // if (loading) return <p>Loading...</p>;
+    if (loading) return <p>Loading...</p>;
+    if (!schedule.length) return <p>Loading...</p>;
 
 
 
     return (
         <>
             <h1>Расписание {id} группы</h1>
-
-            <Schedule name={id} />
+            {console.log('dasdas  ',schedule)}
+            <Schedule name={id} schedule1={schedule}/>
 
         </>
     );

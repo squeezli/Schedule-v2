@@ -6,6 +6,7 @@ import { Teachers } from "./pages/teacher/teachers.jsx";
 import { Teacher } from "./pages/teacher/teacher.jsx";
 import { Classrooms } from "./pages/classroom/classrooms.jsx";
 import { Classroom } from "./pages/classroom/classroom.jsx";
+import { AddSchedule } from "./pages/addSchedule/addSchedule.jsx";
 
 import { Home } from "./pages/home/home.jsx";
 
@@ -13,6 +14,7 @@ import { Home } from "./pages/home/home.jsx";
 export const useRoutes = () => {
     return (
         <Routes>
+            <Route path="/add" element={<AddSchedule />} />
             <Route path="/group" element={<Groups />} />
             <Route path="/group/:id" element={<Group />} />
             <Route path="/teacher/" element={<Teachers />} />

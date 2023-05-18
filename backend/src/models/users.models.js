@@ -22,6 +22,9 @@ const User = sequelize.define("user", {
     email: {
         type: DataTypes.STRING,
     },
+    fio: {
+        type: DataTypes.STRING,
+    },
 },)
 
 User.hasOne(UserInfo,{

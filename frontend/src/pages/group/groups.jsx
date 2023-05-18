@@ -18,7 +18,7 @@ export const Groups = () => {
             const fetched = await request(`/api/group/list`, 'GET', null);
             console.log('fetched: ',fetched)
             
-            setGroups([...groups, ...fetched.map(group => [group.name])])
+            setGroups([...groups, ...fetched.map(group => [group.group])])
 
 
         } catch (error) {}
@@ -33,7 +33,6 @@ export const Groups = () => {
     return (
         <>
             <h1>Расписание группы</h1>
-            {console.log(groups)}
 
             <SelectorItems items={groups} setValue={setValue} value={value} label='Группы' />
 

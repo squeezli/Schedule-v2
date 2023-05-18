@@ -1,13 +1,15 @@
 const Classroom = require('../models/classrooms.models.js')
-
+const { sequelize } = require("../utils/DB.utils.js");
 
 exports.show = async (req, res) => {
     try {
 
-        const id = req.params.id
+        const building = req.params.id
 
-        const classroom = await Classroom.findOne({ where: { id } })
-        if (!classroom) { return res.status(400).json({ message: `Аудитория не найдена` }) }
+        // const classroom = await Classroom.findOne({ where: { id } })
+        // if (!classroom) { return res.status(400).json({ message: `Аудитория не найдена` }) }
+
+        const classroom =  await sequelize.query("SELECT DISTINCT `classrooms` FROM `schedules` WHERE `building`", building);
 
         return res.status(200).json({})
 
