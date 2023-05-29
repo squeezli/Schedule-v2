@@ -6,7 +6,7 @@ exports.list = async (req, res) => {
   try {
     const groups = await sequelize.query("SELECT DISTINCT `group` FROM `schedules`");
 
-    console.log(groups[0]);
+    // console.log(groups[0]);
     return res.status(200).json(groups[0]);
   } catch (error) {
     return res.status(500);
@@ -34,7 +34,7 @@ exports.create = async (req, res) => {
     const { name } = req.body;
 
     const candidate = await Group.findOne({ where: { name } });
-    console.log("Candidate: ", candidate);
+    // console.log("Candidate: ", candidate);
     if (candidate) {
       return res
         .status(400)

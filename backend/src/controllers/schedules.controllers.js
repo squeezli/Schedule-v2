@@ -20,10 +20,10 @@ exports.showByUser = async (req, res) => {
         // date: { [Op.between]: [startDate, endDate] },
       },
     });
-    console.log(shedules)
+    // console.log(shedules)
     return res.status(200).json(shedules);
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return res
       .status(500)
       .json({ message: `Что-то пошло не так, попробуйте снова` });
@@ -32,7 +32,7 @@ exports.showByUser = async (req, res) => {
 
 exports.showByGroup = async (req, res) => {
   try {
-    console.log("da");
+    // console.log("da");
     const number = req.params.number;
     // const { startDate, endDate } = await req.body;
 
@@ -45,7 +45,34 @@ exports.showByGroup = async (req, res) => {
       },
     });
 
-    console.log("sdas", schedules);
+    // console.log("sdas", schedules);
+
+    return res.status(200).json(schedules);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: `Что-то пошло не так, попробуйте снова` });
+  }
+};
+exports.showByClassroom = async (req, res) => {
+  try {
+    // console.log("da");
+    const number = req.params.number;
+    const building = req.params.building;
+    // const { startDate, endDate } = await req.body;
+
+    console.log(building[0]);
+
+    // console.log(id);
+
+    const schedules = await Schedule.findAll({
+      where: {
+        classroom: number,
+        buildings: building[0].toUpperCase(),
+        // date: { [Op.between]: [startDate, endDate] },
+      },
+    });
 
     return res.status(200).json(schedules);
   } catch (error) {
@@ -90,14 +117,14 @@ exports.createByCsv = async (req, res) => {
   let schedules = [];
   try {
     let result = [];
-    console.log(req.file);
+    // console.log(req.file);
     fs.createReadStream(req.file.path)
       .pipe(csv({ separator: ";" }))
       .on("data", (data) => result.push(data))
       .on("end", () => {
-        result.forEach( (lessons, index) => {
-            // let groupId = await Group.findOne({ where: { name: lessons.group } })
-            // console.log(groupId.id)
+        result.forEach(  (lessons, index) => {
+            let groupId =  Group.findOne({ where: { name: lessons.group } })
+            console.log(groupId.id)
            schedules.push ({
             teacher: lessons.teacher,
             group: lessons.group,
@@ -110,7 +137,7 @@ exports.createByCsv = async (req, res) => {
             weekday: lessons.weekdays,
           });
         });
-        console.log(schedules, "da");
+        // console.log(schedules, "da");
         Schedule.destroy({ where: {} });
         const schedule = Schedule.bulkCreate(schedules);
         return res
@@ -118,7 +145,7 @@ exports.createByCsv = async (req, res) => {
           .json({ message: `Расписание добавлено`, result: schedule });
       });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res
       .status(500)
       .json({ message: `Что-то пошло не так, попробуйте снова.` });
@@ -132,10 +159,11 @@ exports.createByCsv = async (req, res) => {
 //       .pipe(csv({ separator: ";" }))
 //       .on("data", (data) => result.push(data))
 //       .on("end", () => {
-//         result.forEach( (lessons, index) => {
-//         //   let user = await User.findOne({ where: { fio: lessons.teacher } });
-//           //   let groupId = Group.findOne({ where: { name: lessons.group } });
-//           //   let subject = Subject.findOne({ where: { name: lessons.subject } });
+//         result.forEach( async (lessons, index) => {
+//           let user = await User.findOne({ where: { fio: lessons.teacher } });
+//           console.log('User:', user)
+//             let groupId = Group.findOne({ where: { name: lessons.group } });
+//             let subject = Subject.findOne({ where: { name: lessons.subject } });
 //           schedules.push({
 //             userId: '2',
 //             groupId: "1",
@@ -147,13 +175,13 @@ exports.createByCsv = async (req, res) => {
 //         });
 //       });
 
-//     console.log(schedules, "da");
+//     // console.log(schedules, "da");
 //     const schedule = Schedule.bulkCreate(schedules);
 //     return res
 //       .status(200)
 //       .json({ message: `Расписание добавлено`, result: schedule });
 //   } catch (error) {
-//     console.log(error);
+//     // console.log(error);
 //     return res
 //       .status(500)
 //       .json({ message: `Что-то пошло не так, попробуйте снова.` });
