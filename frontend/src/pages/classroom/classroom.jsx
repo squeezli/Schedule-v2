@@ -7,8 +7,8 @@ import moment from 'moment';
 
 export const Classroom = () => {
 
-    const id = useParams().id;
-
+    const id = useParams().classroomId;
+    console.log('Classroom:', useParams())
     // const startDate = moment().startOf('week').format('YYYY-MM-DD');
     // const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
@@ -40,7 +40,7 @@ export const Classroom = () => {
         <>
             <h1>Расписание {id} аудитории</h1>
 
-            <Schedule name={id} />
+            {/* <Schedule name={id} /> */}
 
         </>
     );

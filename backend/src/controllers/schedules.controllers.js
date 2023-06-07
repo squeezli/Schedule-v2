@@ -56,6 +56,16 @@ exports.showByGroup = async (req, res) => {
   }
 };
 
+exports.showByClassroom = async (req, res) => {
+  try {
+    console.log(req.body)
+    console.log(req.params)
+    const classroom = req.body;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 exports.create = async (req, res) => {
   try {
     const { days } = req.body;
