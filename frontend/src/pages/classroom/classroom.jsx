@@ -7,13 +7,12 @@ import moment from 'moment';
 
 export const Classroom = () => {
 
-<<<<<<< HEAD
-    const id = useParams().classroomId;
+
     console.log('Classroom:', useParams())
-=======
+
     const {classroomId, buildingId} = useParams();
 
->>>>>>> 994c7c6b40b4f53fb4c049ccbf6af03b07402021
+
     // const startDate = moment().startOf('week').format('YYYY-MM-DD');
     // const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
@@ -46,11 +45,7 @@ export const Classroom = () => {
         <>
             <h1>Расписание {classroomId} аудитории</h1>
 
-<<<<<<< HEAD
-            {/* <Schedule name={id} /> */}
-=======
             <Schedule name={classroomId} schedule1={schedule} />
->>>>>>> 994c7c6b40b4f53fb4c049ccbf6af03b07402021
 
         </>
     );

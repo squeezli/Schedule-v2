@@ -127,7 +127,7 @@ exports.createByCsv = async (req, res) => {
   let schedules = [];
   try {
     let result = [];
-    // console.log(req.file);
+    console.log(req.file);
     fs.createReadStream(req.file.path)
       .pipe(csv({ separator: ";" }))
       .on("data", (data) => result.push(data))

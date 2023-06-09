@@ -1,32 +1,33 @@
 import React, { useState, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import {
   Container,
   Typography,
   TextField,
   Button,
   Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 
+// import Typography from "@mui/material/Typography";
 import { useHttp } from "../../hooks/http.hook";
 import { useAuth } from "../../hooks/auth.hook";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(8),
+    // marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   title: {
-    marginBottom: theme.spacing(4),
+    // marginBottom: theme.spacing(4),
   },
   form: {
     width: "100%",
-    marginTop: theme.spacing(1),
+    // marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    // margin: theme.spacing(3, 0, 2),
   },
 }));
 
