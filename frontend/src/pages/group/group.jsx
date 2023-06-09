@@ -12,7 +12,7 @@ export const Group = () => {
     // const startDate = moment().startOf('week').format('YYYY-MM-DD');
     // const endDate = moment().endOf('week').format('YYYY-MM-DD');
 
-    console.log(id)
+    // console.log(id)
 
     const { request, loading } = useHttp();
     const [schedule, setSchedule] = React.useState([]);
@@ -22,9 +22,9 @@ export const Group = () => {
 
             const fetched = await request(`/api/schedule/group/${id}`, 'GET');
             
-            console.log('ff',fetched);
+            // console.log('ff',fetched);
 
-            setSchedule([...schedule, ...fetched.map(group=>[group.subject, group.classroom, group.buildings])])
+            setSchedule([...schedule, ...fetched.map(group=>group)])
 
         } catch (error) {
             console.log(error);
@@ -45,8 +45,8 @@ export const Group = () => {
     return (
         <>
             <h1>Расписание {id} группы</h1>
-            {console.log('dasdas  ',schedule)}
-            <Schedule name={id} schedule1={schedule}/>
+            {/* {console.log('dasdas  ',schedule)} */}
+            <Schedule name={id} schedule={schedule}/>
 
         </>
     );

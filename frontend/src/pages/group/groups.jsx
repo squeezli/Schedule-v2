@@ -16,7 +16,7 @@ export const Groups = () => {
     const fetchGroups = React.useCallback(async () => {
         try {
             const fetched = await request(`/api/group/list`, 'GET', null);
-            console.log('fetched: ',fetched)
+            // console.log('fetched: ',fetched)/
             
             setGroups([...groups, ...fetched.map(group => [group.group])])
 

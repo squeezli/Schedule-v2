@@ -45,7 +45,7 @@ exports.showByGroup = async (req, res) => {
       },
     });
 
-    // console.log("sdas", schedules);
+    console.log("sdas", schedules);
 
     return res.status(200).json(schedules);
   } catch (error) {
@@ -152,7 +152,7 @@ exports.createByCsv = async (req, res) => {
         const schedule = Schedule.bulkCreate(schedules);
         return res
           .status(200)
-          .json({ message: `Расписание добавлено`, result: schedule });
+          .json({ message: `Расписание загружено`, result: schedule });
       });
   } catch (error) {
     // console.log(error);

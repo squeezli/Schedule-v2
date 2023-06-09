@@ -21,11 +21,9 @@ export const Teacher = () => {
 
       setSchedule([
         ...schedule,
-        ...fetched.map((teacher) => [
-          teacher.subject,
-          teacher.classroom,
-          teacher.buildings,
-        ]),
+        ...fetched.map((teacher) => 
+          teacher
+        ),
       ]);
     } catch (error) {
       console.log(error);
@@ -43,7 +41,7 @@ export const Teacher = () => {
     <>
       <h1>Расписание преподавателя {id}</h1>
 
-      <Schedule name={id} schedule1={schedule} />
+      <Schedule name={id} schedule={schedule} group={false} />
     </>
   );
 };

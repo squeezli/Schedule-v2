@@ -1,0 +1,61 @@
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.schedule-table th {
+  background-color: #f2f2f2; /* Цвет фона заголовков в светлой теме */
+  color: #333; /* Цвет текста в заголовках в светлой теме */
+}
+
+.schedule-table td.lesson-cell {
+  position: sticky;
+  left: 0;
+  background-color: #f2f2f2; /* Цвет фона ячейки с номером урока в светлой теме */
+  z-index: 2;
+  color: #333; /* Цвет текста в ячейке с номером урока в светлой теме */
+}
+
+.schedule-table td.lesson-cell:hover {
+  background-color: #f7f7f7; /* Цвет фона при наведении на ячейку с номером урока в светлой теме */
+}
+
+.schedule-table .lesson-data {
+  text-align: left;
+}
+
+.schedule-table .lesson-data .lesson-subject {
+  font-weight: bold;
+}
+
+.schedule-table .lesson-data .lesson-teacher,
+.schedule-table .lesson-data .lesson-classroom {
+  color: #888; /* Цвет текста в ячейках с именем преподавателя и номером аудитории */
+}
+
+/* Стили для темной темы */
+.schedule-table.dark-theme th {
+  background-color: #333; /* Цвет фона заголовков в темной теме */
+  color: #fff; /* Цвет текста в заголовках в темной теме */
+}
+
+.schedule-table.dark-theme td.lesson-cell {
+  background-color: #333; /* Цвет фона ячейки с номером урока в темной теме */
+  color: #fff; /* Цвет текста в ячейке с номером урока в темной теме */
+}
+
+.schedule-table.dark-theme td.lesson-cell:hover {
+  background-color: #555; /* Цвет фона при наведении на ячейку с номером урока в темной теме */
+}
+
+.schedule-table.dark-theme .lesson-data .lesson-teacher,
+.schedule-table.dark-theme .lesson-data .lesson-classroom {
+  color: #ccc; /* Цвет текста в ячейках с именем преподавателя и номером аудитории в темной теме */
+}

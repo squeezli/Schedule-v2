@@ -15,6 +15,8 @@ exports.list = async (req, res) => {
       "SELECT DISTINCT `teacher` FROM `schedules`"
     );
 
+      console.log(user[0])
+
     return res.status(200).json(user[0]);
   } catch (error) {
     console.log(error);

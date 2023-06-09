@@ -16,26 +16,29 @@ import { Link, Switch } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth.hook";
+import { AuthContext } from "../../context/Auth.context";
 
 const pageUrl = ["group", "teacher", "classroom"];
 const pages = ["Группы", "Преподаватели"];
-const settings = ["Профиль", "Добавить расписание", "Выйти"];
-const settingsUrl = ["/profile", "/add", "/logout"];
+const settings = ["Добавить расписание", "Выйти"];
+const settingsUrl = ["/add", "/logout"];
 
-export const Header = ({ setCheckedTheme, checkedTheme, isAuthenticated }) => {
+export const Header = ({ setCheckedTheme, checkedTheme }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const auth = useAuth();
 
+  const authContext = React.useContext(AuthContext);
+
   const navigate = useNavigate();
   const title = "Schedule.net";
 
   const logoutHandler = (event) => {
-
     event.preventDefault();
     auth.logout();
     navigate("/");
+    window.location.reload();
   };
 
   const handleOpenNavMenu = (event) => {
@@ -151,15 +154,24 @@ export const Header = ({ setCheckedTheme, checkedTheme, isAuthenticated }) => {
               </Button>
             ))}
           </Box>
-
-          <Switch
+          {!authContext.isAuthenticated && (
+            <Button
+              component={RouterLink}
+              to={"/login"}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Войти
+            </Button>
+          )}
+          {/* <Switch
             defaultChecked
             checked={checkedTheme}
             onChange={(e) => setCheckedTheme(e.target.checked)}
             inputProps={{ "aria-label": "controlled" }}
-          />
+          /> */}
 
-          {isAuthenticated && (
+          {authContext.isAuthenticated && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

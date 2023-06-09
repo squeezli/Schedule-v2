@@ -10,26 +10,28 @@ import { padding } from '@mui/system';
 export const Teachers = () => {
 
     const { request, loading } = useHttp();
-    // const [teachers, setTeachers] = React.useState([]);
+    const [teachers, setTeachers] = React.useState([]);
     const navigate = useNavigate();
 
     const [valueTeacher, setValueTeacher] = React.useState(null);
 
 
-    const teachers = ['Черничко И.С.', 'Пархатская А.М.', 'Лиготина Ж.В.']
+    // const teachers = ['Черничко И.С.', 'Пархатская А.М.', 'Лиготина Ж.В.']
 
 
-    // const fetchClassrooms = React.useCallback(async () => {
-    //     try {
-    //         const fetched = await request(`/api/group/list`, 'GET', null);
+    const fetchClassrooms = React.useCallback(async () => {
+        try {
+            const fetched = await request(`/api/user/list`, 'GET', null);
 
-    //         setClassrooms([...classrooms, ...fetched.map(classroom => [classroom.name, classroom.id])])
+            console.log(fetched)
 
-    //     } catch (error) {}
-    // }, [request]);
+            setTeachers([...teachers, ...fetched.map(classroom => [classroom.teacher])])
+
+        } catch (error) {}
+    }, [request]);
 
     React.useEffect(() => {
-        // fetchClassrooms();
+        fetchClassrooms();
     }, []);
 
 

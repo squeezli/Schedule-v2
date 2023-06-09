@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { makeStyles } from "@mui/styles";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -8,39 +7,19 @@ import {
   Grid,
 } from "@mui/material";
 
-// import Typography from "@mui/material/Typography";
 import { useHttp } from "../../hooks/http.hook";
 import { useAuth } from "../../hooks/auth.hook";
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    // marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  title: {
-    // marginBottom: theme.spacing(4),
-  },
-  form: {
-    width: "100%",
-    // marginTop: theme.spacing(1),
-  },
-  submit: {
-    // margin: theme.spacing(3, 0, 2),
-  },
-}));
+import { useNavigate } from "react-router-dom";
 
 export const AuthPage = () => {
-  // const auth = useContext(AuthContext);
-  const auth = useAuth()
+  const navigate = useNavigate();
+  const auth = useAuth();
   const { request } = useHttp();
-  const classes = useStyles();
-  const [login, setUsername] = useState("");
+  const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleLoginChange = (event) => {
+    setLogin(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -48,24 +27,27 @@ export const AuthPage = () => {
   };
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const data = await request(`/api/auth`, "POST", {
+      const data = await request("/api/auth", "POST", {
         password,
         login,
       });
-      auth.loginAuth(data.token)
-    } catch (e) {
-        console.log("Error", e);
+      auth.loginAuth(data.token);
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.log("Error", error);
     }
-   };
+  };
 
   return (
     <Container component="main" maxWidth="xs">
-      <div className={classes.container}>
-        <Typography component="h1" variant="h5" className={classes.title}>
+      <div>
+        <Typography component="h1" variant="h5">
           Авторизация
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -76,7 +58,7 @@ export const AuthPage = () => {
                 label="Имя пользователя"
                 name="username"
                 value={login}
-                onChange={handleUsernameChange}
+                onChange={handleLoginChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,17 +75,16 @@ export const AuthPage = () => {
               />
             </Grid>
           </Grid>
-          </form>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-            onClick={()=>handleSubmit()}
+            onClick={handleSubmit}
           >
             Войти
           </Button>
+        </form>
       </div>
     </Container>
   );

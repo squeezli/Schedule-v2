@@ -11,7 +11,7 @@ import { AuthPage } from "./pages/auth/auth.jsx";
 import { Home } from "./pages/home/home.jsx";
 
 export const useRoutes = (token, isAuthenticated) => {
-  console.log(token);
+
   if (isAuthenticated) {
     return (
       <Routes>
