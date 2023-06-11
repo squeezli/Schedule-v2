@@ -49,7 +49,7 @@ import { AuthContext } from "../../context/Auth.context";
 export const Schedule = ({ schedule, group = true }) => {
 
     const theme = React.useContext(AuthContext)
-  const daysOfWeek = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"];
+  const daysOfWeek = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
   const lessons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (

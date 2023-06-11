@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useRoutes } from "./router";
-import { Header } from "./components/headers/header";
+import { Header } from "./components/header/header";
+import {Footer} from "./components/footer/footer";
 import { AuthContext } from "./context/Auth.context";
 import {
   Container,
@@ -66,6 +67,7 @@ function App() {
                 isAuthenticated={isAuthenticated}
               />
               <Container>{routes}</Container>
+              <Footer/>
             </Router>
           </main>
         </div>

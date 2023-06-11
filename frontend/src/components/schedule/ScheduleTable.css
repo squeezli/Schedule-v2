@@ -1,6 +1,8 @@
 .schedule-table {
   width: 100%;
   border-collapse: collapse;
+
+  margin-bottom: 50px;
 }
 
 .schedule-table th,
