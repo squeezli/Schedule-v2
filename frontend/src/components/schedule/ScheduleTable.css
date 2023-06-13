@@ -61,3 +61,30 @@
 .schedule-table.dark-theme .lesson-data .lesson-classroom {
   color: #ccc; /* Цвет текста в ячейках с именем преподавателя и номером аудитории в темной теме */
 }
+
+@media print {
+  .schedule-table-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 8px;
+    border: 1px solid #000;
+  }
+
+  .schedule-table .lesson-cell {
+    font-weight: bold;
+  }
+
+  .schedule-table .lesson-data {
+    font-weight: normal;
+  }
+}
