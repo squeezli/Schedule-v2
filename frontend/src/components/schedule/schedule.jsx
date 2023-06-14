@@ -44,12 +44,13 @@
 
 import * as React from "react";
 import "./ScheduleTable.css";
-import { AuthContext } from "../../context/Auth.context";
+// import { AuthContext } from "../../context/Auth.context";
 
 export const Schedule = ({ schedule, group = true }) => {
 
-    const theme = React.useContext(AuthContext)
-  const daysOfWeek = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"];
+  console.log("Schedule ", schedule)
+
+  const daysOfWeek = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
   const lessons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
@@ -78,7 +79,7 @@ export const Schedule = ({ schedule, group = true }) => {
                         <div className="lesson-subject">
                           {lessonData.subject}
                         </div>
-                        {group == true && (
+                        {group === true && (
                           <div className="lesson-teacher">
                             {lessonData.teacher}
                           </div>

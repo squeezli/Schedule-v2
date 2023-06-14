@@ -1,5 +1,5 @@
-const { Op } = require("sequelize");
 const Schedule = require("../models/schedules.models.js");
+const { Op } = require("sequelize");
 const User = require("../models/users.models.js");
 const { sequelize } = require("../utils/DB.utils.js");
 const csv = require("csv-parser");
@@ -34,20 +34,25 @@ exports.showByGroup = async (req, res) => {
   try {
     // console.log("da");
     const number = req.params.number;
+
+    const group = await Group.findOne({where:{ name: number}})
+
+
+
+    const id = req.body.groupid;
     // const { startDate, endDate } = await req.body;
-
-    // console.log(id);
-
     const schedules = await Schedule.findAll({
       where: {
-        group: number,
+        groupId: group.id,
         // date: { [Op.between]: [startDate, endDate] },
       },
     });
+    const schedulesWithGroupName = schedules.map((schedule) => ({
+      ...schedule.toJSON(),
+      group: group.name,
+    }));
 
-    console.log("sdas", schedules);
-
-    return res.status(200).json(schedules);
+    return res.status(200).json(schedulesWithGroupName, );
   } catch (error) {
     console.log(error);
     return res
@@ -123,44 +128,56 @@ exports.create = async (req, res) => {
 
 
 exports.createByCsv = async (req, res) => {
-  // console.log(req)
   let schedules = [];
   try {
     let result = [];
     console.log(req.file);
-    fs.createReadStream(req.file.path)
-      .pipe(csv({ separator: ";" }))
-      .on("data", (data) => result.push(data))
-      .on("end", () => {
-        result.forEach(  (lessons, index) => {
-            let groupId =  Group.findOne({ where: { name: lessons.group } })
-            console.log(groupId.id)
-           schedules.push ({
-            teacher: lessons.teacher,
-            group: lessons.group,
-            // groupId:  groupId,
-            // date: lessons.date,
-            lesson: lessons.lessons,
-            subject: lessons.subject,
-            classroom: lessons.classroom,
-            buildings: lessons.buildings,
-            weekday: lessons.weekdays,
-          });
-        });
-        // console.log(schedules, "da");
-        Schedule.destroy({ where: {} });
-        const schedule = Schedule.bulkCreate(schedules);
-        return res
-          .status(200)
-          .json({ message: `Расписание загружено`, result: schedule });
+    await new Promise((resolve, reject) => {
+      fs.createReadStream(req.file.path)
+        .pipe(csv({ separator: ";" }))
+        .on("data", (data) => result.push(data))
+        .on("end", () => resolve())
+        .on("error", (error) => reject(error));
+    });
+
+    for (const lessons of result) {
+      const [group, created] = await Group.findOrCreate({ where: { name: lessons.group } });
+      const [user, createdUser] = await User.findOrCreate({ where: { fio: lessons.teacher }, defaults:{ password: 'admin', login:'fio'}});
+      const [subject, createdSubject] = await Subject.findOrCreate({ where: { name: lessons.subject } });
+      console.log(group[0]);
+      schedules.push({
+        // teacher: lessons.teacher,
+        group: lessons.group,
+        groupId: group ? group[0].id : null,
+        userId: user ? user[0].id : null,
+        subjectId: subject ? subject[0].id : null,
+        // date: lessons.date,
+        lesson: lessons.lessons,
+        // subject: lessons.subject,
+        classroom: lessons.classroom,
+        buildings: lessons.buildings,
+        weekday: lessons.weekdays,
+        // userId: 1,
       });
+    }
+
+    await Schedule.destroy({ where: {} });
+    console.log(schedules);
+    const schedule = await Schedule.bulkCreate(schedules);
+
+    return res.status(200).json({
+      message: `Расписание загружено`,
+      result: schedule,
+    });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     return res
       .status(500)
       .json({ message: `Что-то пошло не так, попробуйте снова.` });
   }
 };
+
+
 // exports.createByCsv = async (req, res) => {
 //   try {
 //     let schedules = [];

@@ -86,7 +86,7 @@ router.post('/classrooms/create',authMiddleware,classrooms.create)
 router.put('/classrooms/update/:id',authMiddleware,classrooms.update)
 router.delete('/classrooms/delete/:id',authMiddleware,classrooms.delete)
 
-router.get('/db/sync',authMiddleware, require('../controllers/database.controllers.js').dbSync)
-router.get('/db/seed',authMiddleware, require('../controllers/database.controllers.js').dbSeed)
+router.get('/db/sync', require('../controllers/database.controllers.js').dbSync)
+router.get('/db/seed', require('../controllers/database.controllers.js').dbSeed)
 
 module.exports = router 

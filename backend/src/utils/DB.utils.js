@@ -7,6 +7,7 @@ console.log('')
 
 //Connect to database
 module.exports.sequelize = new Sequelize({
+    logging: false,
     database: process.env.DB_CONNECT,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,

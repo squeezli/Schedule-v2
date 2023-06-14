@@ -4,10 +4,10 @@ const { sequelize } = require("../utils/DB.utils.js");
 const { QueryTypes } = require("sequelize");
 exports.list = async (req, res) => {
   try {
-    const groups = await sequelize.query("SELECT DISTINCT `group` FROM `schedules`");
+    const groups = await sequelize.query("SELECT * FROM `groups`");
 
     // console.log(groups[0]);
-    return res.status(200).json(groups[0]);
+    return res.status(200).json(groups);
   } catch (error) {
     return res.status(500);
   }
