@@ -45,13 +45,7 @@ router.delete('/user/delete/:id',authMiddleware,users.delete)
 // router.use()
 router.get('/schedule/group/:number',schedules.showByGroup)
 router.get('/schedule/user/:fio',schedules.showByUser)
-
-router.get('/schedule/classroom/:id',schedules.showByClassroom)
-
-router.post('/schedule/create',authMiddleware,schedules.create)
 router.post('/schedule/upload',upload.single('file'),authMiddleware, schedules.createByCsv)
-router.put('/schedule/update/:id',authMiddleware,schedules.updateDay)
-router.delete('/schedule/delete/:id',authMiddleware,schedules.delete)
 
 
 

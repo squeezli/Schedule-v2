@@ -17,6 +17,7 @@ export const SelectorItems = (props) =>{
                     // console.log("items selector: ",props.items)
                 }}
                 disablePortal
+                noOptionsText = "Не найдено"
                 id="combo-box-demo"
                 options={props.items.map((item, index) => item)}
                 sx={{ width: 300, paddingBottom:1 }}

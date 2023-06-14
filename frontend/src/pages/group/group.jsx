@@ -22,9 +22,9 @@ export const Group = () => {
 
             const fetched = await request(`/api/schedule/group/${id}`, 'GET');
             
-            // console.log('ff',fetched);
 
             setSchedule([...schedule, ...fetched.map(group=>group)])
+           
 
         } catch (error) {
             console.log(error);

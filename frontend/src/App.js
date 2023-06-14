@@ -67,7 +67,7 @@ function App() {
                 isAuthenticated={isAuthenticated}
               />
               <Container>{routes}</Container>
-              <Footer/>
+              {/* <Footer/> */}
             </Router>
           </main>
         </div>

@@ -8,6 +8,7 @@ const Group = require("../models/groups.models.js");
 const Subject = require("../models/subjects.models.js");
 const Classroom = require("../models/classrooms.models.js");
 const Building = require("../models/buildings.models.js");
+const Call = require("../models/calls.models.js");
 
 exports.showByUser = async (req, res) => {
   try {
@@ -45,8 +46,6 @@ exports.showByGroup = async (req, res) => {
       },
     });
 
-    console.log("sdas", schedules);
-
     return res.status(200).json(schedules);
   } catch (error) {
     console.log(error);
@@ -55,6 +54,7 @@ exports.showByGroup = async (req, res) => {
       .json({ message: `Что-то пошло не так, попробуйте снова` });
   }
 };
+
 exports.showByClassroom = async (req, res) => {
   try {
     // console.log("da");
@@ -83,47 +83,8 @@ exports.showByClassroom = async (req, res) => {
   }
 };
 
-exports.showByClassroom = async (req, res) => {
-  try {
-    console.log(req.body)
-    console.log(req.params)
-    const classroom = req.body;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-exports.create = async (req, res) => {
-  try {
-    const { days } = req.body;
-    let schedules = [];
-
-    days.forEach((lessons) => {
-      lessons.lessons.forEach((lesson) => {
-        schedules.push({
-          userId: lesson.userId,
-          groupId: lesson.groupId,
-          date: lesson.date,
-          lesson: lesson.lesson,
-          subjectId: lesson.subjectId,
-          classroomId: lesson.classroomId,
-        });
-      });
-    });
-
-    const schedule = await Schedule.bulkCreate(schedules);
-
-    return res.status(200).json({ message: `Расписание добавлено` });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: `Что-то пошло не так, попробуйте снова.` });
-  }
-};
-
-
 exports.createByCsv = async (req, res) => {
-  // console.log(req)
+
   let schedules = [];
   try {
     let result = [];
@@ -147,7 +108,6 @@ exports.createByCsv = async (req, res) => {
             weekday: lessons.weekdays,
           });
         });
-        // console.log(schedules, "da");
         Schedule.destroy({ where: {} });
         const schedule = Schedule.bulkCreate(schedules);
         return res
@@ -155,116 +115,9 @@ exports.createByCsv = async (req, res) => {
           .json({ message: `Расписание загружено`, result: schedule });
       });
   } catch (error) {
-    // console.log(error);
     return res
       .status(500)
       .json({ message: `Что-то пошло не так, попробуйте снова.` });
   }
 };
-// exports.createByCsv = async (req, res) => {
-//   try {
-//     let schedules = [];
-//     let result = [];
-//     fs.createReadStream(req.file.path)
-//       .pipe(csv({ separator: ";" }))
-//       .on("data", (data) => result.push(data))
-//       .on("end", () => {
-//         result.forEach( async (lessons, index) => {
-//           let user = await User.findOne({ where: { fio: lessons.teacher } });
-//           console.log('User:', user)
-//             let groupId = Group.findOne({ where: { name: lessons.group } });
-//             let subject = Subject.findOne({ where: { name: lessons.subject } });
-//           schedules.push({
-//             userId: '2',
-//             groupId: "1",
-//             date: lessons.date,
-//             lesson: lessons.lessons,
-//             subjectId: "1",
-//             classroomId: "1",
-//           });
-//         });
-//       });
 
-//     // console.log(schedules, "da");
-//     const schedule = Schedule.bulkCreate(schedules);
-//     return res
-//       .status(200)
-//       .json({ message: `Расписание добавлено`, result: schedule });
-//   } catch (error) {
-//     // console.log(error);
-//     return res
-//       .status(500)
-//       .json({ message: `Что-то пошло не так, попробуйте снова.` });
-//   }
-// };
-
-exports.updateDay = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const { schedule } = req.body;
-
-    await Schedule.update(
-      {
-        userId: schedule.userId,
-        groupId: schedule.groupId,
-        date: schedule.date,
-        lesson: schedule.lesson,
-        subjectId: schedule.subjectId,
-        classroomId: schedule.classroomId,
-      },
-      {
-        where: {
-          id: id,
-        },
-      }
-    );
-
-    return res.status(200).json({ message: `Расписание обновлено` });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: `Что-то пошло не так, попробуйте снова` });
-  }
-};
-
-exports.updateWeek = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const { schedules } = req.body;
-
-    // await Schedule.update({
-    //     userId: schedule.userId,
-    //     groupId: schedule.groupId,
-    //     date: schedule.date,
-    //     lesson: schedule.lesson,
-    //     subjectId: schedule.subjectId,
-    //     classroomId: schedule.classroomId,
-    // }, {
-    //     where: {
-    //         id: id
-    //     }
-    // })
-
-    return res.status(200).json({ message: `Расписание обновлено` });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: `Что-то пошло не так, попробуйте снова` });
-  }
-};
-
-exports.delete = async (req, res) => {
-  // try {
-  //     const id = req.params.id
-  //     await User.destroy({
-  //         where: {
-  //             id: id,
-  //         }
-  //     })
-  //     return res.status(204).json({ message: `Пользователь удален` })
-  // } catch (error) {
-  return res
-    .status(500)
-    .json({ message: `Что-то пошло не так, попробуйте снова` });
-  // }
-};
