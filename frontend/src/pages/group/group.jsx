@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useHttp } from "../../hooks/http.hook";
 import { useNavigate, useParams } from 'react-router-dom'
 import { Schedule } from '../../components/schedule/schedule';
-import moment from 'moment';
-
 
 export const Group = () => {
 
