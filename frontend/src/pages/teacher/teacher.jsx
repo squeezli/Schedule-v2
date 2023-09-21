@@ -2,7 +2,6 @@ import * as React from "react";
 import { useHttp } from "../../hooks/http.hook";
 import { useNavigate, useParams } from "react-router-dom";
 import { Schedule } from "../../components/schedule/schedule";
-import moment from "moment";
 
 export const Teacher = () => {
   const id = useParams().id;
@@ -13,18 +12,13 @@ export const Teacher = () => {
   const fetchSchedule = React.useCallback(async () => {
     try {
       const fetched = await request(`/api/schedule/user/${id}`, "GET");
-
-      console.log("ff", fetched);
-
       setSchedule([
         ...schedule,
         ...fetched.map((teacher) => 
           teacher
         ),
       ]);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }, [request]);
 
   React.useEffect(() => {
