@@ -11,8 +11,6 @@ export const Groups = () => {
     const [value, setValue] = React.useState(null);
     const navigate = useNavigate();
 
-    // const groups =['490','491','492','493','494','495']
-
     const fetchGroups = React.useCallback(async () => {
         try {
             const fetched = await request(`/api/group/list`, 'GET', null);
