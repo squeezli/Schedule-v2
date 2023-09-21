@@ -164,12 +164,6 @@ export const Header = ({ setCheckedTheme, checkedTheme }) => {
               Войти
             </Button>
           )}
-          {/* <Switch
-            defaultChecked
-            checked={checkedTheme}
-            onChange={(e) => setCheckedTheme(e.target.checked)}
-            inputProps={{ "aria-label": "controlled" }}
-          /> */}
 
           {authContext.isAuthenticated && (
             <Box sx={{ flexGrow: 0 }}>
