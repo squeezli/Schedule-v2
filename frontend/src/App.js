@@ -25,9 +25,7 @@ function App() {
       mode: "dark",
     },
   });
-  if (!ready) {
-    // return <div>fsdfsd</div>;
-  } else if (checkedTheme) {
+  if (!ready) {} else if (checkedTheme) {
     return (
       <AuthContext.Provider
         value={{ token, login, logout, userId, isAuthenticated, rules, checkedTheme}}
@@ -67,7 +65,6 @@ function App() {
                 isAuthenticated={isAuthenticated}
               />
               <Container>{routes}</Container>
-              {/* <Footer/> */}
             </Router>
           </main>
         </div>
