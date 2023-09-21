@@ -12,9 +12,6 @@ export const SelectorItems = (props) =>{
                 value={props.value}
                 onChange={(event, newValue) => {
                     props.setValue(newValue);
-                    // console.log("event selector: ",event)
-                    // console.log("newValue selector: ",newValue)
-                    // console.log("items selector: ",props.items)
                 }}
                 disablePortal
                 noOptionsText = "Не найдено"
