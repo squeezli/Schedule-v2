@@ -4,7 +4,6 @@ import axios from "axios";
 import "./addSchedule.css";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/Auth.context";
-// import { useAuth } from "./hooks/auth.hook";
 
 import { MessageContext } from "../../context/Message.context";
 
@@ -24,12 +23,8 @@ export const AddSchedule = () => {
         },
       })
       .then((res) => {
-        // console.log(res);
         showMessage(res.data.message);
       });
-      // setTimeout(() => {
-      //   navigate("/");
-      // }, 2000);
     navigate(`/`);
   };
 
@@ -50,7 +45,6 @@ export const AddSchedule = () => {
           hidden
         />
       </Button>
-      {/* {console.log(selectedFile.name)} */}
       {selectedFile ? (
         <>
           {selectedFile.name}
