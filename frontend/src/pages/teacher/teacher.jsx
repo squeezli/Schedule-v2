@@ -7,9 +7,6 @@ import moment from "moment";
 export const Teacher = () => {
   const id = useParams().id;
 
-  // const startDate = moment().startOf('week').format('YYYY-MM-DD');
-  // const endDate = moment().endOf('week').format('YYYY-MM-DD');
-
   const { request, loading } = useHttp();
   const [schedule, setSchedule] = React.useState([]);
 
