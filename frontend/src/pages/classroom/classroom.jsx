@@ -4,34 +4,17 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Schedule } from '../../components/schedule/schedule';
 import moment from 'moment';
 
-
 export const Classroom = () => {
-
-
-    console.log('Classroom:', useParams())
-
+    
     const {classroomId, buildingId} = useParams();
-
-
-    // const startDate = moment().startOf('week').format('YYYY-MM-DD');
-    // const endDate = moment().endOf('week').format('YYYY-MM-DD');
-
     const { request, loading } = useHttp();
     const [schedule, setSchedule] = React.useState([]);
 
     const fetchSchedule = React.useCallback(async () => {
         try {
-            
             const fetched = await request(`/api/schedule/${buildingId}/${classroomId}`, 'GET');
-            
-            console.log('ff',fetched);
-
             setSchedule([...schedule, ...fetched.map(group => [group.subject, group.buildings, group.classroom])])
-
-        } catch (error) {
-            console.log(error);
-        
-         }
+        } catch (error) {}
     }, [request]);
 
     React.useEffect(() => {
